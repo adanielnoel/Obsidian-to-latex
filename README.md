@@ -32,6 +32,10 @@ The settings:
 
 Currently there are no more settings.
 
+**Writing in Obsidian**
+
+The `obsidian.css` is contains a theme optimized for academic research in Obsidian (I'll work out an explanation elsewhere soon). Just activate community themes on Obsidian and drop this file in the vault. Some day I'll try to include it with the community themes.  
+
 ## Markdown syntax for the parser
 **Bold, italics and highlights**
 

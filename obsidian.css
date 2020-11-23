@@ -1,0 +1,675 @@
+
+:root
+{
+    --dark0:  #292e38;
+    --dark1:  #3b4252;
+    --dark2:  #434c5e;
+    --dark3:  #4c566a;
+    --dark4:  #606c85;
+    --dark-faint: #343d4e81;
+    --dark-faint-1: #3d485c;
+    --dark-faint-2: #5b6c8b4d;
+
+    --light0: #d8dee9;
+    --light1: #e5e9f0;
+    --light2: #eceff4;
+    --light3: #b8b8b8;
+    --light4: #979696;
+
+    --frost0: #8fbcbb;
+    --frost1: #88c0d0;
+    --frost2: #81a1c1;
+    --frost3: #679cdd;
+
+    --red:    #bf616a;
+    --orange: #da8a5c;
+    --yellow: #e0bd76;
+    --green:  #788b66;
+    --purple: #b48ead;
+    --gold: #fdc2022a;
+    --gold-dark: #916f0018;
+}
+
+.theme-dark,
+.theme-light
+{
+    --font-monospace: 'Hack Nerd Font', 'Source Code Pro', monospace;
+    --font-em: 'Times New Roman', serif;
+    --background-primary:         var(--dark0);
+    --background-primary-alt:     var(--dark0);
+    --background-secondary:       var(--dark1);
+    --background-secondary-alt:   var(--dark2);
+    --text-normal:                var(--light3);
+    --text-strong:                var(--light2);
+    --text-em:                    var(--light3);
+    --text-faint:                 var(--light0);
+    --text-muted:                 var(--light1);
+    --text-title-h1:              var(--red);
+    --text-title-h2:              var(--orange);
+    --text-title-h3:              var(--yellow);
+    --text-title-h4:              var(--dark3);  /* Used for paragraph descriptions*/
+    --text-title-h5:              var(--purple);
+    --text-link:                  var(--frost0);
+    --text-a:                     var(--frost3);
+    --text-a-hover:               var(--frost2);
+    --background-mark:            var(--gold-dark);
+    --pre-code:                   var(--dark-faint-2);
+    --text-highlight-bg:          var(--dark3);
+    --interactive-accent:         var(--frost0);
+    --interactive-before:         var(--dark3);
+    --blockquote-text:            var(--dark4);
+    --blockquote-highlight:       var(--gold);
+    --background-modifier-border: var(--dark1);
+    --text-accent:                var(--orange);
+    --interactive-accent-rgb:     var(--orange);
+    --inline-code:                var(--frost1);
+    --code-block:                 var(--frost1);
+    --vim-cursor:                 var(--orange);
+    --text-selection:             var(--dark3);
+}
+
+.theme-dark code[class*="language-"],
+.theme-dark pre[class*="language-"],
+.theme-light code[class*="language-"],
+.theme-light pre[class*="language-"]
+{
+    text-shadow: none !important;
+    background-color: var(--pre-code) !important;
+}
+
+.graph-view.color-circle,
+.graph-view.color-fill-highlight,
+.graph-view.color-line-highlight
+{
+    color: var(--interactive-accent-rgb) !important;
+}
+.graph-view.color-text
+{
+    color: var(--text-a-hover) !important;
+}
+/*
+.graph-view.color-fill
+{
+    color: var(--background-secondary);
+}
+.graph-view.color-line
+{
+  color: var(--background-modifier-border);
+}
+*/
+
+html,
+body
+{
+    font-size: 16px !important;
+}
+
+p,
+pre.CodeMirror-line
+{
+    font-weight: 200 !important;
+}
+
+p {
+    margin-top: 0.1em !important;
+}
+
+strong, .cm-strong
+{
+    color: var(--text-strong) !important;
+    font-weight: 600 !important;
+}
+
+em, .cm-em {
+    color: var(--text-em) !important;
+}
+
+a em {
+    color: var(--text-a) !important;
+}
+
+a,
+.cm-hmd-internal-link
+{
+    color: var(--text-a) !important;
+    font-weight: 400 !important;
+    text-decoration: none !important;
+}
+
+a:hover,
+.cm-hmd-internal-link:hover,
+.cm-url
+{
+    color: var(--text-a-hover) !important;
+    text-decoration: none !important;
+}
+
+/* ====== Highlights ====== */
+mark,
+.cm-highlight /* Highlight in normal text */
+{
+    background-color: var(--gold-dark) !important;
+    font-weight: 500 !important;
+    color: var(--yellow) !important;
+}
+
+blockquote mark { /* Highlight inside a quote in read mode */
+    background-color: transparent !important;
+    font-weight: 500 !important;
+}
+
+.cm-highlight.cm-quote { /* Highlight inside a quote in edit mode */
+    background-color: transparent !important;
+    color: var(--yellow) !important;
+}
+
+/* ===== Paragraph descriptions===== */
+.HyperMD-header-4 {
+    padding-bottom: 0px !important;
+}
+
+.cm-header-4 {
+    font-weight: 400 !important;
+    font-size: 0.8em !important;
+    color: var(--text-title-h4) !important;
+}
+
+.markdown-preview-section h4 {
+    font-weight: 400 !important;
+    font-size: 0.8em !important;
+    margin-top: 0 !important;
+    margin-bottom: 0em !important;
+    vertical-align: middle !important;
+    height: 1.5em !important;
+    color: transparent;
+}
+
+.markdown-preview-section h4::before {
+    content: '<>' !important;
+    /* vertical-align: middle !important; */
+    font-weight: 100 !important;
+    color: var(--text-title-h4) !important;
+}
+
+.markdown-preview-section h4:hover {
+    color: var(--text-title-h4) !important;
+}
+
+.markdown-preview-section h4:hover::before {
+    content: '' !important;
+}
+
+/* ===== Formatting symbols ===== */
+
+.cm-formatting.cm-formatting-highlight.cm-highlight{ /* '==' signs in edit mode */
+    font-size: 8px !important;
+    vertical-align: middle !important;
+    background-color: transparent !important;
+    font-weight: bold !important;
+    opacity: 0.3 !important;
+}
+
+.cm-formatting-link:not(.cm-hmd-barelink) {  /* Link double square brackets */
+    color: var(--dark-faint-1) !important;
+}
+
+.cm-formatting-link.cm-hmd-barelink {  /* Single square brackets */
+    color: var(--text-normal) !important;
+}
+
+.cm-formatting-strong,   /* Double asterisks */
+.cm-formatting-em,       /* Single asterisks */
+.cm-formatting-header-4  /* Four hashtags */
+{
+    font-family: var(--font-monospace) !important;
+    color: var(--dark-faint-1) !important;
+    font-size: 8px !important;
+    vertical-align: middle !important;
+}
+
+.cm-formatting-math {   /* Dollar sign */
+    font-family: var(--font-monospace) !important;
+    opacity: 0.5 !important;
+    font-weight: 100 !important;
+}
+
+/* ===== Math commands ===== */
+
+.cm-math {
+    color: var(--red) !important;
+}
+
+/* ===== Links commands ===== */
+
+.cm-link {
+    font-weight: 400 !important;
+    color: var(--text-a) !important;
+}
+
+.cm-url {
+    color: var(--text-a) !important;
+}
+
+/* ========== */
+
+.cm-quote:not(.cm-highlight):not(.cm-em), .cm-quote-1:not(.cm-highlight):not(.cm-em) {
+    color: var(--dark4) !important;
+}
+
+.view-actions a
+{
+    color: var(--text-normal) !important;
+}
+
+.view-actions a:hover
+{
+    color: var(--text-a) !important;
+}
+
+.HyperMD-codeblock-bg
+{
+    background-color: var(--pre-code) !important;
+}
+
+.HyperMD-codeblock
+{
+    line-height: 1.4em !important;
+    color: var(--code-block) !important;
+}
+
+.HyperMD-codeblock-begin
+{
+    border-top-left-radius: 4px !important;
+    border-top-right-radius: 4px !important;
+}
+
+.HyperMD-codeblock-end
+{
+    border-bottom-left-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+th
+{
+    font-weight: 600 !important;
+}
+
+thead
+{
+    border-bottom: 2px solid var(--background-modifier-border) !important;
+}
+
+/* ====== List bullets ======== */
+
+ul,
+ul ul,
+ul ul ul,
+ul ul ul ul {
+    list-style: none !important;
+    margin-left: 1em !important;
+    padding-left: 1em !important;
+    font-weight: 200 !important;
+}
+
+ul > li:before {
+    display: inline-block !important;
+    content: "-" !important;
+    width: 1em !important;
+    margin-left: -1em !important;
+    color: var(--frost2) !important;
+}
+
+/* ====== Ordered list levels ======== */
+
+ol,
+ol ol,
+ol ol ol,
+ol ol ol ol {
+    margin-left: 1em !important;
+    padding-left: 1em !important;
+    font-weight: 200 !important;
+    counter-reset: item !important;
+    list-style-position: outside !important;
+}
+
+ol ol ol,
+ol ol ol ol {
+    margin-left: 1.5em !important;
+    padding-left: 1.5em !important;
+}
+
+ol > li {
+    position: relative !important;
+    display: block !important;
+    list-style-position: outside !important;
+    margin-bottom: 3px !important;
+}
+
+ol > li:before {
+    content: counters(item, ".") ")  " !important;
+    counter-increment: item !important;
+    display: inline-block !important;
+    width: 1.5em !important;
+    margin-left: -1.5em !important;
+    color: var(--frost2) !important;
+}
+
+ol ol > li:before {
+    width: 2em !important;
+    margin-left: -2em !important;
+}
+
+ol ol ol > li:before {
+    width: 3em !important;
+    margin-left: -3em !important;
+}
+
+/* ====== Tag Pills ======== */
+
+.tag {
+    background-color: var(--background-secondary-alt) !important;
+    border: none !important;
+    font-weight: 600 !important;
+    color: var(--text-a) !important;
+    font-size: 13px !important;
+    line-height: 1.6em !important;
+    padding: 0px 8px 1px 7px !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin: 0px 0px !important;
+    cursor: pointer !important;
+    border-radius: 12px !important;
+  }
+  
+  .tag:hover {
+    color: white !important;
+    background-color: var(--text-a) !important;
+  }
+
+/* ===== Block quotes ===== */
+blockquote{
+    color: var(--blockquote-text) !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    border-color: var(--dark-faint) !important;
+}
+
+blockquote p {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+
+blockquote ul {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+blockquote li {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+}
+
+.cm-blockid {
+    color: var(--blockquote-text) !important;
+}
+
+.cm-hmd-indent-in-quote {
+    color: var(--blockquote-text) !important;
+}
+
+.cm-formatting-quote {
+    opacity: 0.3 !important;
+}
+
+/* ===== Selections ===== */
+.CodeMirror-selected {
+    background-color: var(--gold) !important;
+    order: 100 !important;
+}
+
+/* ===== */
+
+.HyperMD-table-row
+{
+    line-height: normal !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    /* background-color: var(--pre-code) !important; */
+}
+
+.HyperMD-table-row-0
+{
+    /* padding-top: 4px !important; */
+}
+
+.CodeMirror-foldgutter-folded,
+.is-collapsed .nav-folder-collapse-indicator
+{
+    color: var(--text-a) !important;
+}
+
+.nav-file-tag
+{
+    color: var(--text-a) !important;
+}
+
+.is-active .nav-file-title
+{
+    color: var(--text-a) !important;
+    background-color: var(--background-primary-alt) !important;
+}
+
+.nav-file-title
+{
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}
+
+img
+{
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.HyperMD-list-line
+{
+    padding-top: 0 !important;
+}
+
+.cm-hashtag,
+.search-result-file-matched-text
+{
+    color: var(--frost2) !important;
+}
+
+.markdown-preview-section pre code,
+.markdown-preview-section code
+{
+    font-size: 0.9em !important;
+    background-color: var(--pre-code) !important;
+    padding: 1px 3px !important;
+}
+
+.markdown-preview-section pre code
+{
+    padding: 4px !important;
+    line-height: 1.4em !important;
+    display: block !important;
+    color: var(--code-block) !important;
+}
+
+.markdown-preview-section code
+{
+    color: var(--inline-code) !important;
+}
+
+.cm-s-obsidian,
+.cm-inline-code
+{
+    -webkit-font-smoothing: auto !important;
+}
+
+.cm-inline-code
+{
+    color: var(--inline-code) !important;
+    background-color: var(--pre-code) !important;
+    padding: 1px !important;
+}
+
+.workspace-leaf-header-title
+{
+    font-weight: 600 !important;
+}
+
+.side-dock-title
+{
+    padding-top: 15px !important;
+    font-size: 20px !important;
+}
+
+.side-dock-ribbon-tab:hover,
+.side-dock-ribbon-action:hover,
+.side-dock-ribbon-action.is-active:hover,
+.nav-action-button:hover,
+.side-dock-collapse-btn:hover
+{
+    color: var(--text-a);
+}
+
+.side-dock
+{
+    border-right: 0 !important;
+}
+
+.cm-s-obsidian,
+.markdown-preview-view
+{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+/* vertical resize-handle */
+.workspace-split.mod-vertical > * > .workspace-leaf-resize-handle,
+.workspace-split.mod-left-split > .workspace-leaf-resize-handle, 
+.workspace-split.mod-right-split > .workspace-leaf-resize-handle
+{
+    width: 1px !important;
+    background-color: var(--background-secondary-alt);
+}
+
+/* horizontal resize-handle */
+.workspace-split.mod-horizontal > * > .workspace-leaf-resize-handle
+{
+    height: 1px !important;
+    background-color: var(--background-secondary-alt);
+}
+
+/* Remove vertical split padding */
+.workspace-split.mod-root .workspace-split.mod-vertical .workspace-leaf-content,
+.workspace-split.mod-vertical > .workspace-split,
+.workspace-split.mod-vertical > .workspace-leaf,
+.workspace-tabs
+{
+    padding-right: 0px;
+}
+
+.markdown-embed-title
+{
+    font-weight: 600 !important;
+}
+
+.markdown-embed
+{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
+.cm-header-1,
+.markdown-preview-section h1
+{
+    font-weight: 600 !important;
+    font-size: 36px !important;
+    color: var(--text-title-h1) !important;
+}
+
+.cm-header-2,
+.markdown-preview-section h2
+{
+    font-weight: 500 !important;
+    font-size: 26px !important;
+    color: var(--text-title-h2) !important;
+}
+
+.cm-header-3,
+.markdown-preview-section h3
+{
+    font-weight: 500 !important;
+    font-size: 22px !important;
+    color: var(--text-title-h3) !important;
+}
+
+.cm-header-5,
+.cm-header-6,
+.markdown-preview-section h5,
+.markdown-preview-section h6
+{
+    font-weight: 500 !important;
+    font-size: 18px !important;
+    color: var(--text-title-h5) !important;
+}
+
+.suggestion-item.is-selected
+{
+    background-color: var(--background-secondary);
+}
+
+.empty-state-container:hover
+{
+    background-color: var(--background-secondary-alt);
+    border: 5px solid var(--interactive-accent) !important;
+}
+
+.checkbox-container
+{
+    background-color: var(--interactive-before);
+}
+
+.checkbox-container:after
+{
+    background-color: var(--background-secondary-alt);
+}
+
+.mod-cta
+{
+    color: var(--background-secondary-alt) !important;
+    font-weight: 600 !important;
+}
+
+.mod-cta:hover
+{
+    background-color: var(--interactive-before) !important;
+    font-weight: 600 !important;
+}
+
+.CodeMirror-cursor
+{
+    background-color: var(--vim-cursor) !important;
+    opacity: 60% !important;
+}
+
+input.task-list-item-checkbox {
+    border: 1px solid var(--frost3) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+}
+
+input.task-list-item-checkbox:checked {
+    background-color: var(--frost2) !important;
+    box-shadow: inset 0 0 0 2px var(--background-primary) !important;
+}
