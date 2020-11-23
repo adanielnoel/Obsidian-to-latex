@@ -1,6 +1,6 @@
 # Obsidian to LaTex
 
-A tool to create academic reports straight from [Obsidian notes](https://obsidian.md). The parser translated from Obsidian markdown to LaTex and it only requires some structure in the way you write your notes/essays.
+A tool to create academic reports straight from [Obsidian notes](https://obsidian.md). The parser translates from Obsidian markdown to LaTex and it only requires some structure in the way you write your notes/essays.
 
 ## Using the parser
 If you prefer an example, checkout the `example/` directory.
