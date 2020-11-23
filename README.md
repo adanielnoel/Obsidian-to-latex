@@ -47,7 +47,7 @@ Some summary will be printed on the screen, including if there are undefined lab
 ## Markdown syntax for the parser
 **Bold, italics and highlights**
 
-Just as you normally would
+Use as you normally would in markdown.
 
 **Headers**
 
