@@ -1,13 +1,25 @@
 import json
 from parser import parse, scan_headers
-import os.path
+import os.path, os
+import sys
 
-config_file = 'example_config.json'
+if len(sys.argv) == 1:
+    print('NO CONFIG FILE PROVIDED')
+    exit()
+
+config_file = sys.argv[1]
+if not os.path.exists(config_file):
+    print(f'ERROR: file <{config_file}> not found')
+    exit()
+
+# Change directory to the config file's so that relative paths work
+os.chdir(os.path.dirname(os.path.realpath(config_file)))
+config_file = os.path.basename(config_file)
 
 with open(config_file, 'r') as f:
     config = json.load(f)
 
-print(f'\nLoaded configuration: {config_file}')
+print(f'\nLoaded configuration from <{config_file}>')
 print('======================')
 
 headers = {}

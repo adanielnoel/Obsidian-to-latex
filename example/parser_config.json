@@ -1,0 +1,15 @@
+{
+    "jobs" : [
+        {
+            "input" : "markdown/chapter one.md",
+            "output": "latex_project/chapters/chapter_one.tex"
+        },
+        {
+            "input" : "markdown/chapter two.md",
+            "output": "latex_project/chapters/chapter_two.tex"
+        }
+    ],
+    "settings" : {
+        "latex_local_images_dir" : "Figures/"
+    }
+}

@@ -1,0 +1,37 @@
+\documentclass[11pt, oneside]{book}
+
+
+\usepackage{csquotes}           % Block quotes
+\usepackage{hyperref}           % \autoref{}
+\usepackage{graphicx}           % Figures
+\usepackage{float}              % Option [H] in figures
+\usepackage{color,soul}         % For highlighting
+\usepackage{geometry}
+\geometry{
+	paper=a4paper,  % Change to letterpaper for US letter
+	inner=2.5cm,    % Inner margin
+	outer=2.5cm,    % Outer margin
+	top=2.2cm,      % Top margin
+	bottom=2.2cm,   % Bottom margin
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style
+
+\tableofcontents
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\input{chapters/chapter_one.tex}
+\input{chapters/chapter_two.tex}
+
+
+\bibliographystyle{unsrt}
+\bibliography{library}
+\appendix
+
+\backmatter
+
+
+\end{document}

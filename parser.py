@@ -79,6 +79,7 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
     labels_to_define = []
     in_equation = False
     in_meta = False
+    meta_processed = False
     in_blockquote = False
     in_image = False
     current_image = None
@@ -90,9 +91,8 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
     # FIRST PASS (scan and inplace replacements)
     for i, line in enumerate(text):
         # PROCESS meta (remove from Latex)
-        if line.strip() == '**Type**: #essay':
-            in_meta = True
-        elif line.strip() == '---' and in_meta:
+        if line.strip() == '---' and in_meta:
+            meta_processed = True
             in_meta = False
 
         if in_meta:
@@ -106,6 +106,7 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
         if line[0:2] == '# ':
             line = line.replace('# ', '').strip()
             line = r'\chapter{' + line + '}\n\\label{' + make_header_label(line, latex_filename) + '}\n'
+            in_meta = not meta_processed
         elif line[0:3] == '## ':
             line = line.replace('## ', '').strip()
             line = r'\section{' + line + '}\n\\label{' + make_header_label(line, latex_filename) + '}\n'
@@ -181,11 +182,11 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
         # PROCESS quotes
         if line[0] == '>':
             in_blockquote = True
-            line = '\\begin{blockquote}\n' + line[1:]
+            line = '\\begin{displayquote}\n' + line[1:]
 
         if line.strip() == '' and in_blockquote:
             in_blockquote = False
-            line = '\\end{blockquote}\n\n'
+            line = '\\end{displayquote}\n\n'
 
         # PROCESS tables (comment them out in Latex)
         if line[0] == '|':
