@@ -3,6 +3,12 @@
 A tool to create academic reports straight from [Obsidian notes](https://obsidian.md). The parser translates from Obsidian markdown to LaTex and it only requires some structure in the way you write your notes/essays.
 
 ## Using the parser
+Requirements:
+
+- Python 3
+
+Every Obsidian note corresponds to a LaTex chapter 
+
 If you prefer an example, checkout the `example/` directory.
  
 **The project settings file**

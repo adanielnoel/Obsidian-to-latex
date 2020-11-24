@@ -16,7 +16,7 @@ Donec eget imperdiet nisl. Vestibulum scelerisque venenatis ante, eu varius tort
 
 #### Latex figure: cat.png w=0.4
 `fig:a_cat_being_pet`: Here is a clear example of the submissiveness of "owners" to their "pets". The reverse paradigm explains this better.
-![[file-20170822-30538-gebk45.jpg|300]]
+![img](file-20170822-30538-gebk45.jpg)
 
 In commodo luctus sapien, quis lacinia ante faucibus a. Maecenas placerat efficitur gravida. Praesent in sem sed massa hendrerit vestibulum in sit amet nisi. Maecenas elementum nulla dui, sit amet malesuada ligula facilisis eget. Duis lacinia dolor ut purus mollis, ut dignissim diam lacinia. Nullam [^1] cursus, orci sed aliquet porttitor, purus ante vulputate eros, a porttitor elit mauris sed ante. Proin eu lacus augue. In hac habitasse platea dictumst. Integer et lectus a nunc dictum rhoncus ac ut enim `eq:one_plus_one`. Mauris mattis lectus nec volutpat sodales ([[#Historical evidence]]). Etiam in placerat quam. Sed tellus lectus, elementum et est ac, tincidunt dignissim risus. Maecenas eu erat sit amet arcu efficitur porta eget non elit `Feline1999`, `Smooth2010`.
 

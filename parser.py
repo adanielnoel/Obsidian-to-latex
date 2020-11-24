@@ -94,7 +94,7 @@ class Image:
                 '\end{figure}\n\n'
 
 
-def parse(text, latex_images_dir, headers=(), latex_filename=''):
+def parse(text, latex_local_images_dir, headers=(), latex_filename=''):
     if issubclass(str, type(text)):
         text = text.splitlines()
     text.append('\n') # Add an empty line at the end, fixes bugs where environments don't close because they are at the end
@@ -141,7 +141,7 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
             if is_image_command(line):
                 in_image = True
                 img_args = parse_image_command(line)
-                current_image = Image(image_file_in_latex=latex_images_dir + img_args['file_name'], width=img_args['width'])
+                current_image = Image(image_file_in_latex=latex_local_images_dir + img_args['file_name'], width=img_args['width'])
             elif is_equation_command(line):
                 current_equation_label = line.replace('#### ', '').strip()
             lines_to_delete.append(i)
@@ -234,6 +234,9 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
             lines_to_delete.append(i)
 
         # COLLECT images (to replace in a second pass)
+        if line[:2] == '![':    # Ignore markdown image commands
+            lines_to_delete.append(i)
+            continue
         if in_image:
             if line.strip() == '':
                 line = '#IMAGE: ' + current_image.label
@@ -241,13 +244,14 @@ def parse(text, latex_images_dir, headers=(), latex_filename=''):
                 in_image = False
                 current_image = None
             else:
-                tmp = re.findall(r'^`(.*?)`', line)
+                tmp = re.findall(r'^`(.*?)`', line) # Find the image caption
                 if len(tmp) != 1:
                     print(f'\tPARSE ERROR: caption of image {current_image.image_file_in_latex} in line {i}')
                 else:
                     current_image.label = tmp[0]
                     current_image.caption = line.replace(f'`{tmp[0]}`: ', '')
                 lines_to_delete.append(i)
+                continue
 
         text[i] = line
 

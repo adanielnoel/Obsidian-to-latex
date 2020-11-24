@@ -65,7 +65,7 @@ for i, job in enumerate(config['jobs']):
 
     print(f'Translating from : {job["input"]}')
     translations[job['output']] = parse(content[job['input']],
-                                        latex_images_dir=config['settings']['latex_local_images_dir'],
+                                        latex_local_images_dir=config['settings']['latex_local_images_dir'],
                                         headers=headers, latex_filename=os.path.basename(job['output']).replace('.tex', ''))
 
 print('-----------------------')
