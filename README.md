@@ -7,6 +7,15 @@ Requirements:
 
 - Python 3
 
+Your LaTex project must load the following in the preamble:
+```
+\usepackage{csquotes}           % Block quotes
+\usepackage{hyperref}           % \autoref{}
+\usepackage{graphicx}           % Figures
+\usepackage{float}              % Option [H] in figures
+\usepackage{color,soul}         % For highlighting
+```
+
 Every Obsidian note corresponds to a LaTex chapter 
 
 If you prefer an example, checkout the `example/` directory.
@@ -140,7 +149,7 @@ You can use footnotes as you would normally in Obsidian and they will be parsed 
 
 **Block quotes**
 
-Block quotes in obsidian translate to text within `\begin{blockquote}` and `\end{blockquote}` in LaTex (make sure the package is loaded).
+Block quotes in obsidian translate to text within `\begin{displayquote}` and `\end{displayquote}` in LaTex (make sure the package is loaded).
 
 **Scratch pad section**
 
