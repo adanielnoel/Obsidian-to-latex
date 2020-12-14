@@ -23,9 +23,10 @@ SOFTWARE.
 """
 
 import json
-from parser import parse, scan_headers
-import os.path, os
+import os
 import sys
+from blocks import Project
+
 
 if len(sys.argv) == 1:
     print('NO CONFIG FILE PROVIDED')
@@ -45,33 +46,26 @@ with open(config_file, 'r') as f:
 
 print(f'\nLoaded configuration from <{config_file}>')
 print('======================')
-
-headers = {}
-content = {}
-translations = {}
-for i, job in enumerate(config['jobs']):  # Scan all documents for headers first
+print('LOADING INPUT FILES...')
+project = Project()
+for i, job in enumerate(config['jobs']):
     assert job['input'].endswith('.md')
+    assert job['output'].endswith('.tex')
     with open(job['input'], 'r') as f:
         markdown_text = f.readlines()
-    content[job['input']] = markdown_text
-    headers = {**headers, **scan_headers(markdown_text,
-                                         latex_filename=os.path.basename(job['output']).replace('.tex', ''),
-                                         markdown_filename=os.path.basename(job['input']).replace('.md', ''))}
-    print(f'Loaded headers from : {job["input"]}')
+    md_file_name = os.path.basename(job['input']).split('.')[0]
+    tex_file_name = os.path.basename(job['output']).split('.')[0]
+    project.parse_md_file_contents(markdown_text, md_file_name=md_file_name, tex_file_name=tex_file_name)
+    print(f"\t{job['input']}")
 
-print('-----------------------')
-for i, job in enumerate(config['jobs']):
-    assert job['output'].endswith('.tex')
+print('TRANSLATING...')
+translated_file_contents = {}
+for child, job in zip(project.children, config['jobs']):
+    translated_file_contents[job['output']] = child.formatted_text()
+    print(f"\t{os.path.basename(job['input'])} > {os.path.basename(job['output'])}")
 
-    print(f'Translating from : {job["input"]}')
-    translations[job['output']] = parse(content[job['input']],
-                                        latex_local_images_dir=config['settings']['latex_local_images_dir'],
-                                        headers=headers, latex_filename=os.path.basename(job['output']).replace('.tex', ''))
-
-print('-----------------------')
-for file, latex in translations.items():
-    with open(file, 'w') as f:
-        f.writelines(latex)
-
-    print(f'Written to : {file}')
-
+print('WRITING TO OUTPUT FILES...')
+for tex_file_name, content in translated_file_contents.items():
+    with open(tex_file_name, 'w') as f:
+        f.writelines(content)
+    print(f"\t{tex_file_name}")
