@@ -24,6 +24,7 @@ SOFTWARE.
 
 from parser_utils import to_blocks, format_text
 import re
+import os
 
 
 class Block:
@@ -43,7 +44,9 @@ class Block:
                 if label := (self.find_link(link_components) if isinstance(self, Section) else self.parent.find_link(link_components)):
                     text_lines[i] = text_lines[i].replace(f'[[{link}]]', f'\\autoref{{{label}}}', 1)
                 else:
-                    text_lines[i] = text_lines[i].replace(f'[[^{link}]]', f'\\hl{{{link}}}', 1)
+                    print(f'\t\tWARNING: Reference to section <{link}> not found')
+                    formatted_link = link.replace(r"#", r"\#")
+                    text_lines[i] = text_lines[i].replace(f'[[{link}]]', f'\\hl{{{formatted_link}}}', 1)
 
         # Replace footnotes
         for i in range(len(text_lines)):
@@ -63,12 +66,8 @@ class Section(Block):
         self.h_level = h_level
         self.title = title
         self.children = to_blocks(content, parent=self)
-        self._md_file_name = None
-        self._tex_file_name = None
-
-    def set_file_names(self, md_file_name=None, tex_file_name=None):
-        self._md_file_name = md_file_name or self._md_file_name
-        self._tex_file_name = tex_file_name or self._tex_file_name
+        self.md_file_path = None
+        self.tex_file_path = None
 
     @property
     def label(self):
@@ -78,8 +77,8 @@ class Section(Block):
 
     @property
     def md_file_name(self):
-        if self._md_file_name:
-            return self._md_file_name
+        if self.md_file_path:
+            return os.path.basename(self.md_file_path).split('.')[0]
         elif self.parent:
             return self.parent.md_file_name
         else:
@@ -87,12 +86,16 @@ class Section(Block):
 
     @property
     def tex_file_name(self):
-        if self._tex_file_name:
-            return self._tex_file_name
+        if self.tex_file_path:
+            return os.path.basename(self.tex_file_path).split('.')[0]
         elif self.parent:
             return self.parent.tex_file_name
         else:
             return ''
+
+    @property
+    def title_simple(self):
+        return self.title.replace(':', '')  # In obsidian links, titles are removed of some characters
 
     def find_footnote(self, footnote_mark):
         # try in children footnotes
@@ -103,7 +106,7 @@ class Section(Block):
         return ''
 
     def find_link(self, link_components, top_down_search=False):
-        if self.title == link_components[0] or self.md_file_name == link_components[0]:
+        if self.title_simple == link_components[0] or self.md_file_name == link_components[0]:
             if len(link_components) == 1:
                 return self.label  # Recursion break condition
 
@@ -219,14 +222,15 @@ class Project:
         self.children.append(child)
         child.parent = self
 
-    def parse_md_file_contents(self, contents, md_file_name, tex_file_name):
+    def parse_md_file_contents(self, contents, md_file_path, tex_file_path):
         for block in to_blocks(contents, parent=self):
             if isinstance(block, Section):
-                block.set_file_names(md_file_name=md_file_name, tex_file_name=tex_file_name)
+                block.md_file_path = md_file_path
+                block.tex_file_path = tex_file_path
                 self.children.append(block)
             else:
-                print('ERROR: non-section block in top level ignored')
-                print(['\t' + line for line in block.content])
+                print('\t\tERROR: non-section block in top level ignored')
+                print(['\t\t\t' + line for line in block.content])
 
     def find_link(self, link_components, top_down_search=False):
         for child in self.children:

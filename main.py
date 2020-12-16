@@ -25,7 +25,7 @@ SOFTWARE.
 import json
 import os
 import sys
-from blocks import Project
+from blocks import Project, Section
 
 
 if len(sys.argv) == 1:
@@ -33,6 +33,7 @@ if len(sys.argv) == 1:
     exit()
 
 config_file = sys.argv[1]
+
 if not os.path.exists(config_file):
     print(f'ERROR: file <{config_file}> not found')
     exit()
@@ -51,21 +52,26 @@ project = Project()
 for i, job in enumerate(config['jobs']):
     assert job['input'].endswith('.md')
     assert job['output'].endswith('.tex')
+    print(f"\t{job['input']}")
     with open(job['input'], 'r') as f:
         markdown_text = f.readlines()
-    md_file_name = os.path.basename(job['input']).split('.')[0]
-    tex_file_name = os.path.basename(job['output']).split('.')[0]
-    project.parse_md_file_contents(markdown_text, md_file_name=md_file_name, tex_file_name=tex_file_name)
-    print(f"\t{job['input']}")
+    project.parse_md_file_contents(markdown_text, md_file_path=job['input'], tex_file_path=job['output'])
 
 print('TRANSLATING...')
 translated_file_contents = {}
-for child, job in zip(project.children, config['jobs']):
-    translated_file_contents[job['output']] = child.formatted_text()
-    print(f"\t{os.path.basename(job['input'])} > {os.path.basename(job['output'])}")
+max_file_name_length = max([len(c.tex_file_name) for c in project.children if isinstance(c, Section)]) + 8
+for child in project.children:
+    if isinstance(child, Section):
+        print(f"\t{child.tex_file_name}.tex ".ljust(max_file_name_length, '.') + f" {Section.section_levels[child.h_level]}: {child.title}")
+    if child.tex_file_path in translated_file_contents.keys():
+        translated_file_contents[child.tex_file_path] += ['\n\n% =============\n\n'] + child.formatted_text()
+    else:
+        translated_file_contents[child.tex_file_path] = child.formatted_text()
 
 print('WRITING TO OUTPUT FILES...')
 for tex_file_name, content in translated_file_contents.items():
+    print(f"\t{tex_file_name}")
     with open(tex_file_name, 'w') as f:
         f.writelines(content)
-    print(f"\t{tex_file_name}")
+
+print('FINISHED ALL JOBS')

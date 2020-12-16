@@ -144,7 +144,7 @@ def to_blocks(text_lines, parent=None):
             i += 1
         elif is_command(text_lines[i], IGNORE_END_COMMAND):
             if not is_ignoring:
-                print(f'WARNING: found command <{IGNORE_END_COMMAND}> without a matching <{IGNORE_START_COMMAND}>')
+                print(f'\t\tWARNING: found command <{IGNORE_END_COMMAND}> without a matching <{IGNORE_START_COMMAND}>')
             is_ignoring = False
             i += 1
         # PROCESS EMPTY LINES, HORIZONTAL LINES, COMMENTS
@@ -203,7 +203,7 @@ def to_blocks(text_lines, parent=None):
                 content_blocks.append(block)
 
     if is_ignoring:
-        print(f'WARNING: did not find a matching <{IGNORE_END_COMMAND}> command')
+        print(f'\t\tWARNING: did not find a matching <{IGNORE_END_COMMAND}> command')
     return content_blocks
 
 
@@ -221,6 +221,8 @@ def format_text(text_lines_origin):
         # Format special chars that need to be escaped
         for special_char in LATEX_SPECIAL_CHARS:
             text_lines[i] = text_lines[i].replace(special_char, f"\\{special_char}")
+        # Put square brackets in a group so that they are not parsed in latex as block arguments
+        text_lines[i] = re.sub(r'(?<!\[)(\[.*])(?!])', r'{\1}', text_lines[i])
         # put back equations and links
         for link in links:
             text_lines[i] = text_lines[i].replace(r'<LINK-PLACEHOLDER>', link, 1)
@@ -239,7 +241,7 @@ def format_text(text_lines_origin):
             text_lines[i] = re.sub(r'(\w+[18|19|20]\d{2}\w*?)\]\][,|\s]{0,2}\[\[(\w+[18|19|20]\d{2}\w*?)', r'\1,\2', text_lines[i])
             joining = len(text_lines[i]) != length_before
         # Replace Markdown note key citations by Latex citations, handles consecutive citations too
-        text_lines[i] = re.sub(r'\[\[(\w+[18|19|20]\d{2}\S*?)\]\]', r'\\citep{\1}', text_lines[i])
+        text_lines[i] = re.sub(r'\[\[(\w+[18|19|20]\d{2}\S*?)\]\]', r'\\parencite{\1}', text_lines[i])
         # Replace Markdown figure references by Latex references
         text_lines[i] = re.sub(r'`(fig:\S*?)`', r'\\autoref{\1}', text_lines[i])
         # Replace Markdown equation references by Latex references
