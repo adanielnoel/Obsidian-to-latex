@@ -46,7 +46,7 @@ class Block:
                 else:
                     print(f'\t\tWARNING: Reference to section <{link}> not found')
                     formatted_link = link.replace(r"#", r"\#")
-                    text_lines[i] = text_lines[i].replace(f'[[{link}]]', f'\\hl{{{formatted_link}}}', 1)
+                    text_lines[i] = text_lines[i].replace(f'[[{link}]]', f'\\hl{{[[{formatted_link}]]}}', 1)
 
         # Replace footnotes
         for i in range(len(text_lines)):

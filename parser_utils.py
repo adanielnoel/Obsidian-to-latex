@@ -250,6 +250,8 @@ def format_text(text_lines_origin):
         # ===== TEXT FORMATTING =====
         # Replace Markdown monospace by latex monospace (note: do after other code blocks like refs and citations)
         text_lines[i] = re.sub(r'`(.*?)`', r'\\texttt{\1}', text_lines[i])
+        # Replace Markdown italics with quote marks by Latex text quote
+        text_lines[i] = re.sub(r'(?<!\*)\*"([^\*].*?)"\*(?!\*)', r'\\textquote{\1}', text_lines[i])
         # Replace Markdown italics by Latex italics
         text_lines[i] = re.sub(r'(?<!\*)\*([^\*].*?)\*(?!\*)', r'\\textit{\1}', text_lines[i])
         # Replace Markdown bold by Latex bold
