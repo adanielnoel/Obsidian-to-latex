@@ -1,3 +1,6 @@
+> [!NOTE]
+> For a more recent solution, I recommend checking the [Obsitex project](https://github.com/ruipreis/obsitex).
+
 # Obsidian to LaTex
 
 A tool to create academic reports straight from [Obsidian notes](https://obsidian.md). The parser translates from Obsidian markdown to LaTex and it only requires some structure in the way you write your notes/essays.
