@@ -1,5 +1,5 @@
 > [!NOTE]
-> For a more recent solution, I recommend checking the [Obsitex project](https://github.com/ruipreis/obsitex).
+> For a more recent solution, I recommend checking the [ObsiTex](https://github.com/ruipreis/obsitex) project.
 
 # Obsidian to LaTex
 
